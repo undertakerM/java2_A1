@@ -9,7 +9,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * This is just a demo for you, please run it on JDK17 (some statements may be not allowed in lower version).
+ * This is just a demo for you, please run it on JDK17 (some statements may be not allowed in
+ * lower version).
  * This is just a demo, and you can extend and implement functions
  * based on this demo, or implement it in a different way.
  */
@@ -26,12 +27,15 @@ public class OnlineCoursesAnalyzer {
       while ((line = br.readLine()) != null) {
         String[] info = line.split(",(?=([^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)", -1);
         Course course = new Course(info[0], info[1], new Date(info[2]), info[3], info[4], info[5],
-          Integer.parseInt(info[6]), Integer.parseInt(info[7]), Integer.parseInt(info[8]),
-          Integer.parseInt(info[9]), Integer.parseInt(info[10]), Double.parseDouble(info[11]),
-          Double.parseDouble(info[12]), Double.parseDouble(info[13]), Double.parseDouble(info[14]),
-          Double.parseDouble(info[15]), Double.parseDouble(info[16]), Double.parseDouble(info[17]),
-          Double.parseDouble(info[18]), Double.parseDouble(info[19]), Double.parseDouble(info[20]),
-          Double.parseDouble(info[21]), Double.parseDouble(info[22]));
+            Integer.parseInt(info[6]), Integer.parseInt(info[7]), Integer.parseInt(info[8]),
+            Integer.parseInt(info[9]), Integer.parseInt(info[10]), Double.parseDouble(info[11]),
+            Double.parseDouble(info[12]), Double.parseDouble(info[13]),
+            Double.parseDouble(info[14]),
+            Double.parseDouble(info[15]), Double.parseDouble(info[16]),
+            Double.parseDouble(info[17]),
+            Double.parseDouble(info[18]), Double.parseDouble(info[19]),
+            Double.parseDouble(info[20]),
+            Double.parseDouble(info[21]), Double.parseDouble(info[22]));
         courses.add(course);
       }
     } catch (IOException e) {
@@ -74,7 +78,7 @@ public class OnlineCoursesAnalyzer {
     courses.stream().filter(course -> !course.instructors.contains(",")).forEach(course -> {
       if (!courseList.containsKey(course.instructors)) {
         courseList.put(course.instructors, new ArrayList<>(
-          Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+            Arrays.asList(new ArrayList<>(), new ArrayList<>())));
       }
       if (!courseList.get(course.instructors).get(0).contains(course.title)) {
         courseList.get(course.instructors).get(0).add(course.title);
@@ -85,7 +89,7 @@ public class OnlineCoursesAnalyzer {
       for (String instructor : instructors) {
         if (!courseList.containsKey(instructor.strip())) {
           courseList.put(instructor.strip(), new ArrayList<>(
-            Arrays.asList(new ArrayList<>(), new ArrayList<>())));
+              Arrays.asList(new ArrayList<>(), new ArrayList<>())));
         }
         if (!courseList.get(instructor.strip()).get(1).contains(course.title)) {
           courseList.get(instructor.strip()).get(1).add(course.title);
@@ -131,20 +135,20 @@ public class OnlineCoursesAnalyzer {
   //6
   public List<String> recommendCourses(int age, int gender, int isBachelorOrHigher) {
     Map<String, Double> averageMedianAge = courses.stream().collect(Collectors.groupingBy(
-      c -> c.number, HashMap::new, Collectors.averagingDouble(c -> c.medianAge)
+        c -> c.number, HashMap::new, Collectors.averagingDouble(c -> c.medianAge)
     ));
     Map<String, Double> averageMale = courses.stream().collect(Collectors.groupingBy(
-      c -> c.number, HashMap::new, Collectors.averagingDouble(c -> c.percentMale)
+        c -> c.number, HashMap::new, Collectors.averagingDouble(c -> c.percentMale)
     ));
     Map<String, Double> averageBachelorOrHigher = courses.stream().collect(Collectors.groupingBy(
-      c -> c.number, HashMap::new, Collectors.averagingDouble(c -> c.percentDegree)
+        c -> c.number, HashMap::new, Collectors.averagingDouble(c -> c.percentDegree)
     ));
     Map<String, Course> mapCourseNumberToCourse = new HashMap<>();
     courses.forEach(course -> {
       if (!mapCourseNumberToCourse.containsKey(course.number)) {
         mapCourseNumberToCourse.put(course.number, course);
       } else if (mapCourseNumberToCourse.get(course.number).launchDate.getTime()
-        < course.launchDate.getTime()) {
+          < course.launchDate.getTime()) {
         mapCourseNumberToCourse.put(course.number, course);
       }
     });
